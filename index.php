@@ -20,7 +20,16 @@ define('APP_DEBUG',True);
 // 定义应用目录
 define('APP_PATH','./Application/');
 
+// 修改模板路径为Template
+define('TMPL_PATH','./Template/');
+
+// 修改runtime 路径
+define('RUNTIME_PATH','./Runtime/');
+
+// 静态页生成路径
+define('HTML_PATH','./Html/');
+
 // 引入ThinkPHP入口文件
-require './ThinkPHP/ThinkPHP.php';
+require './_Core/ThinkPHP.php';
 
 // 亲^_^ 后面不需要任何代码了 就是如此简单
