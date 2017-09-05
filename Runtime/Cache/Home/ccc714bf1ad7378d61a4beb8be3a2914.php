@@ -64,35 +64,40 @@
 					<a href="#addCollect" tabindex="-1" data-toggle="tab" class="btn btn-default">添加收藏</a>
 				</div>
 				 <!--添加时间安排板块start-->
-				<div class="tab-content">
-					<div id="addPlan" class="tab-pane fade">
-						<div class="form-group">
-							<label for="morning"></label>
-							<input v-model="morning" type="text" class="form-control" id="morning" placeholder="上午时间安排：">
+				<form action="<?php echo U('add');?>" method="post" role="form">
+					<div class="tab-content">
+						<div id="addPlan" class="tab-pane fade">
+							<div class="form-group">
+								<label for="morning"></label>
+								<input v-model="morning" type="text" class="form-control" name="morning" id="morning" placeholder="上午时间安排：">
+							</div>
+							<div class="form-group">
+								<label for="afternoon"></label>
+								<input v-model="afternoon" type="text" class="form-control" name="afternoon" id="afternoon" placeholder="下午时间安排：">
+							</div>
+							<div class="form-group">
+								<label for="night"></label>
+								<input v-model="night" type="text" class="form-control" name="night" id="night" placeholder="晚上时间安排：">
+							</div>
+							<!-- <button @click="addPlan()" class="btn btn-default">提交</button> -->
+							<div class="form_actions">
+								<button type="submit" class="btn btn-default">提交</button>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="afternoon"></label>
-							<input v-model="afternoon" type="text" class="form-control" id="afternoon" placeholder="下午时间安排：">
+						<!--添加网址板块start-->
+						<div id="addCollect" class="tab-pane fade">
+							<div class="form-group">
+								<label for="urlcol"></label>
+								<input v-model="urlcol" type="text" class="form-control" id="urlcol" placeholder="请输入要收藏的网址：">
+							</div>
+							<div class="form-group">
+								<label for="urlname"></label>
+								<input v-model="urlname" type="text" class="form-control" id="urlname" placeholder="请输入网址名：">
+							</div>
+							<button @click="addCollect()" class="btn btn-default">提交</button>
 						</div>
-						<div class="form-group">
-							<label for="night"></label>
-							<input v-model="night" type="text" class="form-control" id="night" placeholder="晚上时间安排：">
-						</div>
-						<button @click="addPlan()" class="btn btn-default">提交</button>
 					</div>
-					<!--添加网址板块start-->
-					<div id="addCollect" class="tab-pane fade">
-						<div class="form-group">
-							<label for="urlcol"></label>
-							<input v-model="urlcol" type="text" class="form-control" id="urlcol" placeholder="请输入要收藏的网址：">
-						</div>
-						<div class="form-group">
-							<label for="urlname"></label>
-							<input v-model="urlname" type="text" class="form-control" id="urlname" placeholder="请输入网址名：">
-						</div>
-						<button @click="addCollect()" class="btn btn-default">提交</button>
-					</div>
-				</div>
+				</form>
 			</div>
 			<!-- 模态框（Modal） -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -116,6 +121,7 @@
 			            <button type="button" class="btn btn-primary">
 			               提交更改
 			            </button>
+						 <button class="btn"></button>
 			         </div>
 			      </div><!-- /.modal-content -->
 				</div><!-- /.modal -->
@@ -146,7 +152,16 @@
 
         methods:{
 			addPlan:function () {
-				alert(1);
+			    let api = U('add');
+				let param = {
+				    morning_data:this.morning,
+				    afternoon_data:this.afternoon,
+					night_data:this.night
+				}
+				$.post(api,param,function (data) {
+					console.log();
+                });
+
             },
 			addCollect:function () {
 				this.urlist.push({url:this.urlcol,name:this.urlname});

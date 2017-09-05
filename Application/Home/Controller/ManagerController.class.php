@@ -17,10 +17,10 @@
 
 
 namespace Home\Controller;
+use Think\Controller;
 
-
-class ManagerController extends FatherController{
-
+class ManagerController extends Controller{
+/*
     //输入模板
     public function _setModel(&$model){
         $model = D('manager');
@@ -34,6 +34,17 @@ class ManagerController extends FatherController{
     //删除操作
     public function _setDelModel(&$model){
         $model = D('manager');
+    }*/
+
+    public function index()
+    {
+
+        if (IS_POST) {
+            echo $_POST['text'];    
+        }
+
+        $this->display();
     }
+
 
 }

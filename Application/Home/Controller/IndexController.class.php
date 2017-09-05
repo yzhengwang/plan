@@ -20,6 +20,26 @@ use Think\Controller;
 
 class IndexController extends Controller {
 
+  public function index(){
+    $model = D('User');
+    //dump($model->relation(true)->select());
+    if (empty($_SESSION)) {
+        $this->redirect('Public/login',1,'请先登陆。。。');
+    }
+    dump($_SESSION);
+    $this->display();
+  }
+
+  public function add(){
+    
+    //$model = D('User');
+    if (IS_POST) {
+        echo $_POST['morning'];
+
+    }
+  }
+
+
   /*  //输入模板
     public function _setModel(&$model){
         $model = D('content');
