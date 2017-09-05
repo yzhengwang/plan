@@ -17,9 +17,10 @@
 
 namespace Home\Controller;
 use Think\Controller;
+
 class IndexController extends Controller {
 
-    //输入模板
+  /*  //输入模板
     public function _setModel(&$model){
         $model = D('content');
     }
@@ -32,7 +33,17 @@ class IndexController extends Controller {
     //删除操作
     public function _setDelModel(&$model){
         $model = D('content');
-    }
+    }*/
+
+   /* public function addPlan(){
+        $result = $this->add();
+        if($result){
+            $this->ajaxResult(200,'添加成功',$result);
+        }else{
+            $this->ajaxResult(300,'添加失败');
+        }
+    }*/
+
 
 
 }

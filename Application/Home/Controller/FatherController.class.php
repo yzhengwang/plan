@@ -26,7 +26,7 @@ class FatherController extends Controller{
     protected $MODULE;
     //是否使用关联模型
     protected $relation;
-
+/*
     public function _initialize() {
 
         $this->relation = false;
@@ -57,10 +57,10 @@ class FatherController extends Controller{
                 exit;
             }
         }
-    }
+    }*/
 
 
-    protected function checkStatus() {
+   /* protected function checkStatus() {
         //检查当前加盟商状态
         $storeStatus = D('Store')->where(array('id' => $this->userInfo['sid']))->getField('status');
         switch ($storeStatus) {
@@ -73,15 +73,15 @@ class FatherController extends Controller{
                 break;
             default:
         }
-    }
+    }*/
 
-    protected function checkRule($rule, $uid) {
+  /*  protected function checkRule($rule, $uid) {
         static $Auth = null;
         if (!$Auth) {
             $Auth = new \Think\Auth();
         }
         return $Auth->check($rule, $uid) ? true : false;
-    }
+    }*/
 
     public function index() {
         $model = D(CONTROLLER_NAME);
@@ -101,7 +101,7 @@ class FatherController extends Controller{
     }
 
     //构造查询条件
-    public function _search($model) {
+  /*  public function _search($model) {
         $map = array();
         foreach ($model->getDbFields() as $key => $val) {
             if (isset($_REQUEST[$val]) && $_REQUEST[$val] != '') {
@@ -109,9 +109,9 @@ class FatherController extends Controller{
             }
         }
         return $map;
-    }
+    }*/
 
-    protected function lists($model, $map, $order) {
+  /*  protected function lists($model, $map, $order) {
         if ($this->relation) {
             $count = $model->relation(true)->where($map)->count();
         } else {
@@ -135,7 +135,7 @@ class FatherController extends Controller{
             $this->assign('page', $show);
         }
         return;
-    }
+    }*/
 
     public function add() {
         $this->actionName = '添加';
@@ -234,15 +234,15 @@ class FatherController extends Controller{
         }
     }
 
-    protected function ajaxResult($code, $message, $list = array()) {
+  /*  protected function ajaxResult($code, $message, $list = array()) {
         $data['code'] = $code;
         $data['message'] = $message;
         $data['result'] = $list;
         $this->ajaxReturn($data, "JSON");
-    }
+    }*/
 
     //文件上传
-    public function upload() {
+/*    public function upload() {
         $upload = new \Think\Upload(); // 实例化上传类
         $upload->maxSize = 3145728; // 设置附件上传大小
         $upload->autoSub = false;
@@ -261,6 +261,6 @@ class FatherController extends Controller{
             }
             $this->ajaxReturn(array('code' => 200, 'message' => '上传成功', 'result' => $data));
         }
-    }
+    }*/
 
 }
