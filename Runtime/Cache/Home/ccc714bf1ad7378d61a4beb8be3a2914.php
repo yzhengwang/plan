@@ -3,6 +3,7 @@
 <head>
 	<title>MyLifePlan</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<script type="text/javascript" src="/Public/js/jquery-3.2.1.js"></script>
 	<script type="text/javascript" src="/Public/vue/vue.min.js"></script>
 	<script type="text/javascript" src="/Public/js/main.js"></script>
@@ -11,16 +12,15 @@
 	<link rel="stylesheet" href="/Public/css/main.css">
 </head>
 <body>
-	<div id="container">
+	<div class="container" id="app">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-sm-12 col-md-12 col-lg-12 text-center">
 				<!--时间安排板块start-->
-				<h2>TO SAY AND TO DO AND IT WILL CHANGE.</h2>
-				<!--<h2>MY DREAM —— After work, I can cook with my family!</h2>-->
-				<br>
+				<!--<h3>TO SAY AND TO DO AND IT WILL CHANGE</h3>-->
+				<h3>MY DREAM —— After work, I can cook with my family!</h3>
 				<div class="panel panel-info text-left">
 					<div class="panel-heading">
-						<h3 class="panel-title">{{today}}</h3>
+						<h3 class="panel-title">{{today}}&nbsp;&nbsp;&nbsp;<span style="display:inline-block;color: cornflowerblue;float:right;">亲爱的：<?php echo ($list["name"]); ?>，欢迎您！</span></h3>
 					</div>
 					<div class="panel-body">
 						<div class="panel text-left">
@@ -28,7 +28,7 @@
 								<h3 class="panel-title">9:00-12:00</h3>
 							</div>
 							<div class="panel-body">
-								后台客服原理分析及各接口的实现。
+								<?php echo ($list['plan_content'][0]["morning"]); ?>
 							</div>
 						</div>
 						<div class="panel text-left">
@@ -36,7 +36,7 @@
 								<h3 class="panel-title">14:00-16:00</h3>
 							</div>
 							<div class="panel-body">
-								后台客服原理分析及各接口的实现。
+								<?php echo ($list['plan_content'][0]["afternoon"]); ?>
 							</div>
 						</div>
 						<div class="panel text-left">
@@ -44,7 +44,7 @@
 								<h3 class="panel-title">22:00-00:00</h3>
 							</div>
 							<div class="panel-body">
-								基于thinkPHP3.2.3+gatewayworker+vue.js+bootstrap的聊天系统。
+								<?php echo ($list['plan_content'][0]["night"]); ?>
 							</div>
 						</div>
 					</div>
@@ -98,6 +98,10 @@
 						</div>
 					</div>
 				</form>
+				<br>
+				<div class="list-group">
+					<li class="list-group-item text-right">Copyright@yzhengwang&nbsp;Version:1.0.0</li>
+				</div>
 			</div>
 			<!-- 模态框（Modal） -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -126,8 +130,17 @@
 			      </div><!-- /.modal-content -->
 				</div><!-- /.modal -->
 			</div>
-			<div id="copyright" class="col-lg-12">Copyright@yzhengwang<br>Version:1.0.0</div>
+
+			<!--<div id="copyright" class="panel panel-info">
+				<div class="panel-heading">
+					<h3>Copyright@yzhengwang&nbsp;Version:1.0.0</h3>
+				</div>
+
+			</div>-->
+
+
 		</div>
+
 	</div>
 </body>
 <script type="text/javascript">
@@ -139,7 +152,7 @@
 
 
     var v = new Vue({
-        el:'#container',
+        el:'#app',
         data:{
             today:'123',
             morning:'',

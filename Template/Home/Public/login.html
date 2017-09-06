@@ -3,39 +3,101 @@
 <head>
 	<meta charset="UTF-8">
 	<title>登陆页</title>
-	<script type="text/javascript" src="__PUBLIC__/js/jquery-3.2.1.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/vue/vue.min.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/js/main.js"></script>
-	<script src="__PUBLIC__/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
-	<link rel="stylesheet" href="__PUBLIC__/css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/main.css">
+	<link type="text/css" rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+	<style type="text/css">
+		.login-error-prompt{color: red;margin-left: 5px;margin-top: 5px;display: none;}
+	</style>
 </head>
 <body>
-	<div class="container" style="padding-top: 100px;">
+	<div class="container" id="app">
 		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-sm-12 col-md-12 col-lg-12 text-center" style="padding-top: 100px;">
 				<form method="post" action="{:U('login')}">
 					<div class="panel panel-info text-left">
 						<div class="panel-heading">
-							<h3 class="panel-title">登录页</h3>
+							<h3 class="panel-title">come...</h3>
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<label for="name"></label>
-								<input type="text" class="form-control" name="name" id="name" placeholder="请输入用户名：">
+								<br>
+								<input v-model.check="text" type="text" class="form-control" name="name" placeholder="请输入用户名：">
+								<label class="login-error-prompt"></label>
 							</div>
 							<div class="form-group">
-								<label for="pwd"></label>
-								<input type="password" class="form-control" name="pwd" id="pwd" placeholder="请输入密码：">
+								<input v-model.check="pwd" type="password" class="form-control" name="pwd" placeholder="请输入密码：">
+								<label class="login-error-prompt"></label>
 							</div>
-							<div class="form_actions">
+							<div class="form_actions text-center">
 								<button type="submit" class="btn btn-default">提交</button>
 							</div>
 						</div>
 					</div>
 				</form>
+				<br>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="__PUBLIC__/vue/vue.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/main.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script type="application/javascript">
+	var text = $("input[type='text']");
+	var pwd = $("input[type='password']");
+	var btn = $("button[type='submit']");
+
+	/*text.blur(function () {
+		var username = $.trim(v.text);
+		if(username==''){
+
+
+		}else{
+			text.next('label').hide();
+			btn.removeAttr("disabled");
+		}
+	});
+	pwd.blur(function () {
+		var password = $.trim(pwd.val());
+		if(password==''){
+			pwd.next('label').html('密码不能为空！');
+			pwd.next('label').show();
+			btn.attr("disabled",true);
+		}else{
+			pwd.next('label').hide();
+			btn.removeAttr("disabled");
+		}
+	});*/
+
+	var v = new Vue({
+		el:'#app',
+		data:{
+			text:'',
+			pwd:''
+		},
+		methods:{
+			check:function () {
+				let username = $.trim(v.text);
+				let password = $.trim(v.pwd);
+				if(username==''){
+					text.next('label').html(v.text);
+					text.next('label').show();
+					btn.attr("disabled",true);
+				}else if(password==''){
+					pwd.next('label').html('密码不能为空！');
+					pwd.next('label').show();
+					btn.attr("disabled",true);
+				}else{
+					pwd.next('label').hide();
+					btn.removeAttr("disabled");
+				}
+			}
+		}
+
+	});
+
+
+</script>
 </html>
