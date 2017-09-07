@@ -35,25 +35,41 @@ class IndexController extends Controller {
         ->find();
     foreach ($result['plan_content'] as $k=>$v){
       $result['plan_content'][$k]['create_time'] = date('Y-m-d H:i:s', $result['plan_content'][$k]['create_time']);
-      /*if(explode(' ',$result['plan_content'][$k]['create_time'])[0]===date('Y-m-d', time())){
-
-      }*/
     }
-    $this->assign('list', $result);
+    $this->assign('info', $result);
+    $this->assign('list', $result['plan_content'][sizeof($result['plan_content'])-1]);
+
+    $this->assign('url_list', $result['url_collect']);
     $this->display();
   }
 
-  public function add(){
+  public function addPlan(){
     $model = M('plan_content');
     if (IS_POST) {
-      dump($model->create());
       if($model->create()){
         $data['uid'] = $_SESSION['id'];
-        $data['morning'] = $_POST['morning'];
-        $data['afternoon'] = $_POST['afternoon'];
-        $data['night'] = $_POST['night'];
+        $data['morning'] = I('morning');
+        $data['afternoon'] = I('afternoon');
+        $data['night'] = I('night');
         $data['create_time'] = time();
-        dump($data);
+        if($model->add($data)){
+          $this->success('添加成功！', U('index'));
+        }else{
+          $this->error('添加失败！');
+        }
+      }else{
+        $this->error('读取数据失败！', $model->getError());
+      }
+    }
+  }
+
+  public function addCollect(){
+    $model = M('url_collect');
+    if (IS_POST) {
+      if($model->create()){
+        $data['uid'] = $_SESSION['id'];
+        $data['url'] = I('url');
+        $data['url_name'] = I('url_name');
         if($model->add($data)){
           $this->success('添加成功！', U('index'));
         }else{
