@@ -1,16 +1,17 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 <head>
-	<title>MyLifePlan</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="stylesheet" href="/Public/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/Public/css/main.css">
-	<style type="text/css">
-		.index-username{display:inline-block;color: cornflowerblue;float: right;font-size: 15px;}
-		.index-urlink{font-size: 15px;}
-	</style>
+    <title>人生计划</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="人生计划" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/Public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Public/css/main.css">
 </head>
+<style type="text/css">
+	.index-username{display:inline-block;color: cornflowerblue;float: right;font-size: 15px;}
+	.index-urlink{font-size: 15px;}
+</style>
 <body>
 	<div class="container" id="app">
 		<div class="row">
@@ -61,6 +62,8 @@
 				<div class="text-left">
 					<a href="#addPlan" tabindex="-1" data-toggle="tab" class="btn btn-default">添加时间安排</a>
 					<a href="#addCollect" tabindex="-1" data-toggle="tab" class="btn btn-default">添加收藏</a>
+					<a href="<?php echo U('Select/index');?>" class="btn btn-default">返回</a>
+					<button class="btn btn-default" data-toggle="modal" data-target="#myModal">退出</button>
 				</div>
 				 <!--添加时间安排板块start-->
 				<div class="tab-content">
@@ -116,20 +119,19 @@
 			                  &times;
 			            </button>
 			            <h4 class="modal-title" id="myModalLabel">
-			               模态框（Modal）标题
+			               确定退出吗？
 			            </h4>
 			         </div>
 			         <div class="modal-body">
-			            在这里添加一些文本
+			            其实还有很多东西可以玩的！！！
 			         </div>
 			         <div class="modal-footer">
 			            <button type="button" class="btn btn-default" data-dismiss="modal">
 							关闭
 			            </button>
-			            <button type="button" class="btn btn-primary">
-			               提交更改
+			            <button @click="logout()" type="button" class="btn btn-danger" data-dismiss="modal">
+			               确定
 			            </button>
-						 <button class="btn"></button>
 			         </div>
 			      </div><!-- /.modal-content -->
 				</div><!-- /.modal -->
@@ -144,7 +146,11 @@
 <script type="text/javascript" src="/Public/vue/vue.min.js"></script>
 <script type="text/javascript" src="/Public/js/main.js"></script>
 <script src="/Public/js/bootstrap.min.js"></script>
+</html>
+
 <script type="text/javascript">
+
+	var logoutApi = "<?php echo U('Public/logout');?>";
 
 	$(function () {
         var today = new Date();
@@ -157,6 +163,12 @@
         data:{
             today:''
         },
+		methods:{
+			logout:function () {
+				$.get(logoutApi,function () {
+					location.href="<?php echo U('Public/login');?>";
+				});
+			}
+		}
     });
 </script>
-</html>
