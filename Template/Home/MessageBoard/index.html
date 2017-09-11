@@ -1,73 +1,37 @@
 <include file="Public:header" title="留言板" keywords="留言板"/>
+<style type="text/css">
+    .message-board-createtime{
+        color: palevioletred;
+        font-size: 15px;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-                <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">发表于：2017-9-7 15：35：00</h3>
+                <br>
+                <foreach name="list" item="vo">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">[{$vo.author}]&nbsp;发表于：<span class="message-board-createtime">{$vo.create_time}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            {$vo.content}
+                        </div>
+                    </div>
+                </foreach>
+                <div class="panel-foot text-center">
+                    {$page}
                 </div>
-                <div class="panel-body">
-                    我也想知道，这是什么情况，发表于：2017-9-7 15：35：00
-                    发表于：2017-9-7 15：35：00
-                </div>
-            </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
+                <form role="form" action="{:U('add')}" method="post">
+                    <div class="form-group">
+                        <label for="content">write down your think...</label>
+                        <textarea name="content" id="content" cols="20" rows="5" class="form-control"></textarea>
                     </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
+                    <div class="form-group">
+                        <button class="btn btn-default" type="submit">发表</button>
                     </div>
-                </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
-                    </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
-                    </div>
-                </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
-                    </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
-                    </div>
-                </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
-                    </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
-                    </div>
-                </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
-                    </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
-                    </div>
-                </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
-                    </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
-                    </div>
-                </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">发表于：2017-9-7 15：35：00</h4>
-                    </div>
-                    <div class="panel-body">
-                        我也想知道，这是什么情况
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -19,6 +19,33 @@ use Think\Controller;
 
 class MessageBoardController extends Controller{
     public function index(){
+        $model = M('message_board');
+        $count = $model->count();
+        $page = new \Think\Page($count, 10);
+        $show = $page->show();
+        $result = $model->limit($page->firstRow.','.$page->listRows)->select();
+        foreach ($result as $k => $v){
+            $result[$k]['create_time'] = date('Y-m-d H:i:s', $result[$k]['create_time']);
+        }
+        $this->assign('list', $result);
+        $this->assign('page', $show);
         $this->display();
+    }
+
+    public function add(){
+        if (IS_POST){
+            if (!empty(I('content'))){
+                $data['content'] = I('content');
+                $data['create_time'] = time();
+                $data['author'] = $_SESSION['name'];
+                $model = M('message_board');
+                $result = $model->add($data);
+                if($result){
+                    $this->success("添加成功！", U('index'));
+                }else{
+                    $this->error("添加失败！");
+                }
+            }
+        }
     }
 }
