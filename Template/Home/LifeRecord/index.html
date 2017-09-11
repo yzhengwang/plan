@@ -4,24 +4,32 @@
     <div class="row">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">2017.9</h3>
+                <h3 class="panel-title">{$list.month}</h3>
             </div>
             <div class="panel-body">
                 <form action="{:U('save')}" method="post" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <div class="col-xs-3 col-sm-3">
-                            <input type="text" class="form-control" style="width: 140%;" value="总收入" readonly>
+                        <div class="col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" value="总收入" readonly>
                         </div>
-                        <div class="col-xs-9 col-sm-9">
-                            <input id="ginput" type="text" class="form-control" name="ginput" placeholder="...">
+                        <div class="col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" name="ginput" value="{$list.ginput}元" placeholder="...">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-xs-3 col-sm-3">
-                            <input type="text" class="form-control" style="width: 140%;" value="总支出" readonly>
+                        <div class="col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" value="总支出" readonly>
                         </div>
-                        <div class="col-xs-9 col-sm-9">
-                            <input id="goutput" type="text" class="form-control" name="ginput" placeholder="...">
+                        <div class="col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" name="goutput" value="{$list.goutput}元" placeholder="...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6 col-sm-6">
+                            <input type="text" class="form-control"  value="剩余" readonly>
+                        </div>
+                        <div class="col-xs-6 col-sm-6">
+                            <input type="text" class="form-control" value="{$list['ginput']-$list['goutput']}元" placeholder="...">
                         </div>
                         <br>
                         <br>
@@ -30,16 +38,13 @@
                                 <h3 class="panel-title">支出详情：</h3>
                             </div>
                             <div class="panel-body">
+                                <foreach name="list['each_record']" item="vo">
                                 <div class="form-group">
                                     <div class="col-xs-12 col-sm-12">
-                                        <input type="text" class="form-control" value="31号-吃饭吃饭吃饭吃饭-15块" readonly>
+                                        <input type="text" class="form-control" value="{$vo.create_time|date='d H:i',###}-{$vo.content}-{$vo.output_money}元" readonly>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <input type="text" class="form-control" value="31号" readonly>
-                                    </div>
-                                </div>
+                                </foreach>
                                 <div class="form-group">
                                     <div class="col-xs-12 col-sm-12">
                                         <input type="text" class="form-control" name="each_record" placeholder="xx号-xxxxx-xx块">
@@ -47,6 +52,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12 col-sm-12 text-center">
+                                        <input type="hidden" name="sid" value="{$vo.sid}">
                                         <button type="submit" class="btn btn-default">添加</button>
                                     </div>
                                 </div>
