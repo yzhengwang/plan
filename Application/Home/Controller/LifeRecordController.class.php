@@ -32,7 +32,8 @@ class LifeRecordController extends Controller{
 
     public function save(){
         if(IS_POST){
-            if(!empty(I('each_record'))&&substr_count(I('each_record'), '-')==1){
+            $em = empty(I('each_record'));
+            if(!$em&&substr_count(I('each_record'), '-')==1){
                 $each_record = I('each_record');
                 $each_record = explode('-', $each_record);
                 $data['content'] = $each_record[0];

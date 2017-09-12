@@ -44,8 +44,14 @@ class IndexController extends Controller {
   }
 
   public function addPlan(){
-    $model = M('plan_content');
     if (IS_POST) {
+      $m = empty(I('morning'));
+      $a = empty(I('afternoon'));
+      $n = empty(I('night'));
+      if($m||$a||$n){
+        $this->error('请输入内容再提交！');
+      }
+      $model = M('plan_content');
       if($model->create()){
         $data['uid'] = $_SESSION['id'];
         $data['morning'] = I('morning');
@@ -64,8 +70,13 @@ class IndexController extends Controller {
   }
 
   public function addCollect(){
-    $model = M('url_collect');
     if (IS_POST) {
+      $u = empty(I('url'));
+      $un = empty(I('url'));
+      if($u||$un){
+        $this->error('请输入内容再提交！');
+      }
+      $model = M('url_collect');
       if($model->create()){
         $data['uid'] = $_SESSION['id'];
         $data['url'] = I('url');

@@ -34,7 +34,8 @@ class MessageBoardController extends Controller{
 
     public function add(){
         if (IS_POST){
-            if (!empty(I('content'))){
+            $c = empty(I('content'));
+            if (!$c){
                 $data['content'] = I('content');
                 $data['create_time'] = time();
                 $data['author'] = $_SESSION['name'];
