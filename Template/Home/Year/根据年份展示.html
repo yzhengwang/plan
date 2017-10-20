@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>人生历程</title>
+	<style type="text/css">
+		body,div,ul,li,p{margin: 0;padding: 0;}
+		#container{width: 1200px;min-height: 1000px;margin: 0 auto;}
+		.componet{width: 100px;height: 300px;margin-left: 200px;position: relative;}
+		.vertical-line{width: 2px;height: 150px;background: #32CD32;left: 25px;position: absolute;}
+		.slash-line{height: 105px;top: 188px;left: 70px;transform:rotate(-34deg);-ms-transform:rotate(-34deg);-moz-transform:rotate(-34deg);-webkit-transform:rotate(-34deg);-o-transform:rotate(-34deg);}
+		.bottom-line{top: 202px;}
+		.circle{width: 50px;height: 50px;top: 150px;border: 2px solid #70DBDB;border-radius: 100%;text-align: center;line-height: 50px;color: firebrick;position: absolute;}
+		.box{width: 600px;height: 180px;border: 2px solid #32CD32;left: 100px;top: 180px;overflow: hidden;position: absolute;text-decoration: underline;line-height: 30px;padding: 10px;}
+		.right-menu{width: 40px;height: 200px;right: 200px;position: fixed;}
+		.right-menu>ul li{width: 40px;height: 20px;margin-top: 2px;cursor: pointer;list-style: none;}
+		.right-menu>ul li a{text-decoration-line: none;}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<!-- 	<a name="con1994" id="con1994"></a>
+		<div class="componet">
+			<div class="vertical-line" style=""></div>
+			<div class="circle">1994</div>
+			<div class="vertical-line bottom-line"></div>
+			<div class="vertical-line slash-line"></div>
+			<div class="box">
+					you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy...you are a good boy
+			</div>
+		</div> -->
+		
+		<div class="right-menu">
+			<ul id="right-menu-ul"></ul> 
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	
+	window.onload = function () {
+		var con = document.getElementById('container');
+		var ul = document.getElementById('right-menu-ul');
+		var year = 1994;
+		var content = 'you are a good boy...';
+		var init = function (y, c){
+			var template = '';
+			template += '<a name="con'+ y +'" id="con'+ y +'"></a>'
+			template += '<div class="componet">'
+			template +=		'<div class="vertical-line"></div>'
+			template +=		'<div class="circle"><b>'+ y +'</b></div>'
+			template +=		'<div class="vertical-line bottom-line"></div>'
+			template +=		'<div class="vertical-line slash-line"></div>'
+			template +=		'<div class="box">'
+			template +=		'<h2>哈哈哈</h2>'
+			template +=		'<p>'+ c +'</p>'
+			template +=		'</div>'
+			template +=	'</div>';
+			var div = document.createElement('div');
+			div.innerHTML = template;
+			con.appendChild(div);
+			var template = '';
+			template += '<li><a href="#con'+ y +'">'+ y +'</a></li>'
+			var li = document.createElement('li');
+			li.innerHTML = template;
+			ul.appendChild(li);
+			// console.log(template);
+		}
+		for (var i = 0; i < 35; i++) {
+			init(year+i, content);
+		}
+		
+	}
+	
+	
+</script>
+</html>
