@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyLifePlan</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/other.css">
+    <block name="static"></block>
+</head>
+<body>
+<!--menu_begin-->
+<header class="menu">
+    <nav>
+        <ul>
+            <li><a href="{:U('Index/index')}">首页</a></li>
+            <li><a href="">知识沉淀</a></li>
+            <li><a href="">图书推荐</a></li>
+            <li><a href="">网站建设</a></li>
+            <li><a href="">PHP学习</a></li>
+            <li><a href="">技术探讨</a></li>
+            <li><a href="">慢生活</a></li>
+            <li><a href="{:U('MessageBoard/index')}">留言板</a></li>
+            <li><a href="{:U('LearnCollection/index')}">学习网址</a></li>
+        </ul>
+    </nav>
+    <div class="search">
+        <form action="" class="searchform" method="get" action="#">
+            <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
+        </form>
+    </div>
+</header>
+<div id="mainbody" class="body">
+    <!--info_begin-->
+    <block name="info"></block>
+    <div class="blank"></div>
+    <div class="blogs">
+        <!--content_begin-->
+        <block name="content"></block>
+        <aside>
+            <div class="tuijian">
+                <h2>推荐文章</h2>
+                <ol>
+                    <li><a href=""><span><strong>1</strong></span>有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                    <li><a href=""><span><strong>2</strong></span>励志人生-要做一个潇洒的女人</a></li>
+                    <li><a href=""><span><strong>3</strong></span>女孩都有浪漫的小情怀——浪漫的求婚词</a></li>
+                    <li><a href=""><span><strong>4</strong></span>Green绿色小清新的夏天-个人博客模板</a></li>
+                    <li><a href=""><span><strong>5</strong></span>Green绿色小清新的夏天-个人博客模板</a></li>
+                    <li><a href=""><span><strong>6</strong></span>Green绿色小清新的夏天-个人博客模板</a></li>
+                    <li><a href=""><span><strong>7</strong></span>Green绿色小清新的夏天-个人博客模板</a></li>
+                </ol>
+            </div>
+            <div class="toppic">
+                <h2>图文并茂</h2>
+                <ul>
+                    <li><a href=""><img src="__PUBLIC__/images/k01.jpg" alt="">腐女不可怕，就怕腐女会画画！<p>伤不起</p></a></li>
+                    <li><a href=""><img src="__PUBLIC__/images/k02.jpg" alt="">腐女不可怕，就怕腐女会画画！<p>伤不起</p></a></li>
+                    <li><a href=""><img src="__PUBLIC__/images/k03.jpg" alt="">腐女不可怕，就怕腐女会画画！<p>伤不起</p></a></li>
+                </ul>
+            </div>
+            <div class="clicks">
+                <h2>热门点击</h2>
+                <ol>
+                    <li><span><a href="">慢生活</a></span><a href="">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                    <li><span><a href="">慢生活</a></span><a href="">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                    <li><span><a href="">慢生活</a></span><a href="">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                    <li><span><a href="">慢生活</a></span><a href="">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                    <li><span><a href="">慢生活</a></span><a href="">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                </ol>
+            </div>
+            <div class="viny">
+                <dl>
+                    <dt class="art"><img src="__PUBLIC__/images/artwork.png" alt=""></dt>
+                    <dd class="icon-song"><span></span>南方姑娘</dd>
+                    <dd class="icon-artist"><span></span>歌手：赵雷</dd>
+                    <dd class="icon-album"><span></span>所属专辑：《赵小雷》</dd>
+                    <dd class="icon-like"><span></span>喜欢</dd>
+                    <dd class="music">
+                        <audio src="images/nf.mp3" controls></audio></dd>
+                </dl>
+            </div>
+        </aside>
+    </div>
+</div>
+<footer>
+    <div class="footer-mid">
+        <div class="links">
+            <h2>友情链接</h2>
+            <ul>
+                <li><a href="">baidu</a></li>
+                <li><a href="">baidu</a></li>
+                <li><a href="">baidu</a></li>
+                <li><a href="">baidu</a></li>
+            </ul>
+        </div>
+        <div class="visitors">
+            <h2>最新评论</h2>
+            <dl>
+                <dt><img src="__PUBLIC__/images/s8.jpg" alt=""></dt>
+                <dd>DanceSmile<time>49分钟前</time></dd>
+                <dd>在 <a href="" class="title">如果要学习web前端开发，需要学习什么？ </a>中评论</dd>
+                <dd>文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</dd>
+            </dl>
+            <dl>
+                <dt><img src="__PUBLIC__/images/s8.jpg" alt=""></dt>
+                <dd>DanceSmile<time>49分钟前</time></dd>
+                <dd>在 <a href="" class="title">如果要学习web前端开发，需要学习什么？ </a>中评论</dd>
+                <dd>文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</dd>
+            </dl>
+            <dl>
+                <dt><img src="__PUBLIC__/images/s8.jpg" alt=""></dt>
+                <dd>DanceSmile<time>49分钟前</time></dd>
+                <dd>在 <a href="" class="title">如果要学习web前端开发，需要学习什么？ </a>中评论</dd>
+                <dd>文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</dd>
+            </dl>
+        </div>
+        <section class="flickr">
+            <h2>摄影作品</h2>
+            <ul>
+                <li><a href=""><img src="__PUBLIC__/images/01.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/02.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/03.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/04.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/05.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/06.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/07.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/08.jpg" alt=""></a></li>
+                <li><a href=""><img src="__PUBLIC__/images/09.jpg" alt=""></a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2017 Design by <a href="">yzhengwang</a></p>
+    </div>
+</footer>
+<block name="script"></block>
+</body>
+</html>

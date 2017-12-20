@@ -1,0 +1,153 @@
+<extend name="Public:base" />
+<block name="static">
+    <style type="text/css">
+        .msg_board{
+            width: 630px;
+            color: #8c8c8c;
+            background: rgba(20, 20, 20, 0.8);
+            box-shadow: 0px 1px 0px rgba(255, 255, 255, .1), inset 0px 1px 1px rgba(0, 0, 0, .7);
+            border-radius: 6px;
+            float: left;
+            margin-top: 20px;
+        }
+        .msg_board .main_bd{
+            font-family: "微软雅黑";
+            width: 100%;
+            display: flex;flex-direction: row;
+            border-top: 1px solid rgba(255,255,255,.5);
+        }
+        .textarea{
+            width: 100%;
+            margin: 15px auto;
+            text-align: center;
+        }
+        .textarea textarea{
+            background: rgba(0, 0, 0, 0.25) url(../images/icons.png) no-repeat 230px -318px;
+            width: 85%;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: 微软雅黑;
+        }
+        .textarea input{
+            background: rgba(0, 0, 0, 0.25) url(../images/icons.png) no-repeat 230px -318px;
+            width: 80px;
+            height: 25px;
+            margin-top: 10px;
+            margin-left: 400px;
+            /*background: #fafafa;*/
+            border: 1px solid #8c8c8c;
+            color: #8c8c8c;
+            cursor: pointer;
+
+        }
+        .msg_board .face{
+            width: 20%;
+        }
+        .msg_board .face img{
+            box-shadow: 0px 1px 0px rgba(205, 255, 255, .1), inset 0px 1px 1px rgba(0, 0, 0, .7);
+            width: 70px;
+            height: 70px;
+            padding: 10px;
+        }
+        .msg_board .toolbar{
+            width: 100%;
+            height: 45px;
+        }
+        .msg_board .toolbar li{
+            line-height: 35px;
+            width: 50px;
+            float: left;
+        }
+        .msg_board .toolbar li:first-child{
+            max-width: 80px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        .msg_board .toolbar li:last-child{
+            width: 50px;
+            float: right;
+        }
+        .msg_board .content{
+            min-height: 80px;
+            width: 90%;
+            font-size: 16px;
+        }
+        .msg_board .time{
+            width: 70%;
+            height: 35px;
+        }
+        .msg_board .reply{
+            width: 100%;
+            display: flex;flex-direction: row;
+        }
+        .msg_board .reply li{
+            float: left;
+        }
+        .msg_board .reply li:first-child{
+            max-width: 80px;
+            min-height: 100px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        .msg_board .reply li:nth-child(2){
+            width: 80%;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .msg_board .reply li:last-child{
+            width: 80%;
+        }
+        .msg_board .reply img{
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</block>
+<block name="content">
+
+    <div class="msg_board">
+        <div class="textarea">
+            <form method="post" action="{:U('add')}">
+                <textarea cols="20" rows="4" name="content" id="textarea" placeholder="添加留言..."></textarea>
+                <input type="submit" value="提交"></input>
+            </form>
+        </div>
+        <volist name="list" id="vo">
+        <div class="main_bd">
+            <div class="face"><img src="__PUBLIC__/images/01.jpg" alt=""></div>
+            <div>
+                <div class="toolbar">
+                    <ul>
+                        <li>{$vo.id}</li>
+                        <li>56</li>
+                        <li>第七楼</li>
+                        <li>引用</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    {$vo.content}
+                </div>
+                <div class="time">
+                    2015-12-29 23:38 &nbsp;<a href="">回复</a>&nbsp;<a href="">送礼</a>
+                </div>
+                <div style="width: 100%;height: 1px;background: white;margin-bottom: 5px;opacity: .5;"></div>
+                <div class="reply">
+                    <div><img src="__PUBLIC__/images/01.jpg" alt=""></li></div>
+                    <div>
+                        <ul>
+                            <li>name</li>
+                            <li>学长，我已经暗恋你很久了，一直不敢表白，因为你和学姐的感情看起来很好！不忍心破坏</li>
+                            <li>2015-12-29 23:38 &nbsp;<a href="">回复</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        </volist>
+        <div>{$page}</div>
+    </div>
+</block>
