@@ -37,8 +37,8 @@ img {
 
 body {
     font: 12px "宋体", "Arial Narrow", HELVETICA;
-    color: #3F3E3C;
-    background: #3F3E3C;
+    color: #3F3E3C !important;
+    background-color: #3F3E3C !important;
 }
 
 header {
@@ -76,19 +76,13 @@ header nav ul li a:hover {
     border-radius: 6px;
 }
 
-.searchform {
-    overflow: hidden;
-    padding: 5px;
-}
-
 .searchform input {
     background: rgba(0, 0, 0, 0.25) url(../images/icons.png) no-repeat 230px -318px;
     border: 1px solid #111;
     width: 220px;
-    line-height: 30px;
+    line-height: 25px;
     color: #b9b9b9;
     padding-left: 10px;
-    padding-right: 25px;
     margin-left: 20px;
 }
 

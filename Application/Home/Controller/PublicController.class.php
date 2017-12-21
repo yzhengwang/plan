@@ -24,6 +24,23 @@ class PublicController extends Controller
 		$this->display();
 	}
 
+	public function register(){
+		if(IS_POST){
+			$name = I('name');
+			$pwd = md5(I('pwd'));
+			$face = I('face');
+			$model = M('user');
+			$result = $model->add();
+			if($result){
+				session_start();
+				session('id',$result['id']);
+				session('name',$name);
+				$this->redirect('Home/Select/index');
+			}
+		}
+		$this->display();
+	}
+
 	public function logout(){
 		session_destroy();
 		if(isset($_SESSION['name'])){

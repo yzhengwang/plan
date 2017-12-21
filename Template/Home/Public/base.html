@@ -3,30 +3,36 @@
 <head>
     <title>MyLifePlan</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/other.css">
+    <script type="application/javascript" src="__PUBLIC__/js/angular.min.js"></script>
+    <script type="application/javascript" src="__PUBLIC__/js/jquery-3.2.1.js"></script>
+    <script type="application/javascript" src="__PUBLIC__/vue/vue.min.js"></script>
+    <script type="application/javascript" src="__PUBLIC__/js/bootstrap.min.js"></script>
     <block name="static"></block>
 </head>
-<body>
+<body  ng-app="sydApp" ng-controller="Controller">
 <!--menu_begin-->
 <header class="menu">
     <nav>
         <ul>
             <li><a href="{:U('Index/index')}">首页</a></li>
             <li><a href="">知识沉淀</a></li>
-            <li><a href="">图书推荐</a></li>
-            <li><a href="">网站建设</a></li>
             <li><a href="">PHP学习</a></li>
             <li><a href="">技术探讨</a></li>
             <li><a href="">慢生活</a></li>
             <li><a href="{:U('MessageBoard/index')}">留言板</a></li>
             <li><a href="{:U('LearnCollection/index')}">学习网址</a></li>
+            <li>
+                <a style="padding-left: 5px;padding-right: 5px;margin-right: 0px;" href="{:U('Public/login')}">登录</a>
+                <a style="padding-left: 5px;padding-right: 5px;margin-right: 0px;" href="{:U('Public/register')}">注册</a>
+            </li>
         </ul>
     </nav>
-    <div class="search">
-        <form action="" class="searchform" method="get" action="#">
-            <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
-        </form>
-    </div>
+    <form action="" class="searchform" method="get" action="#">
+        <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
+    </form>
 </header>
 <div id="mainbody" class="body">
     <!--info_begin-->
