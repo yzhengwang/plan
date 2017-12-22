@@ -117,20 +117,19 @@
 
         .msg_board .reply_msg li:first-child {
             max-width: 80px;
-            min-height: 80px;
+            min-height: 100px;
             overflow: hidden;
             margin-right: 10px;
         }
 
         .msg_board .reply_msg li:nth-child(2) {
             width: 80%;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             overflow: hidden;
         }
 
         .msg_board .reply_msg li:last-child {
             width: 80%;
-            margin-bottom: 16px;
         }
 
         .msg_board .reply_msg img {
@@ -142,16 +141,13 @@
         .msg_board .reply_box {
             width: 100%;
             display: flex;
-            position: absolute;
             flex-direction: row;
             margin-bottom: 10px;
-            /*border: 1px solid red;*/
-
-            /*display: none;*/
+            display: none;
         }
 
         .msg_board .reply_box input, button {
-            background: rgba(128, 128, 128, .7);
+            background: rgba(0, 0, 0, 0.25);
             border: 1px solid #111;
             width: 200px;
             line-height: 30px;
@@ -174,65 +170,63 @@
             <textarea cols="20" rows="4" name="content" id="textarea" placeholder="添加留言..."></textarea>
             <input type="button" ng-click="addMsg()" value="提交">
         </div>
-        <volist name="list" id="vo">
-            <div class="main_bd" id="main_{$vo.id}">
-                <div class="face"><img src="__PUBLIC__/images/01.jpg" alt=""></div>
-                <div class="main_right">
-                    <div class="toolbar">
+        <div class="main_bd" ng-repeat="(index,item) in data">
+            <div class="face"><img src="__PUBLIC__/images/01.jpg" alt=""></div>
+            <div class="main_right">
+                <div class="toolbar">
+                    <ul>
+                        <li>{{index+1}}楼</li>
+                        <li>{{item.status}}</li>
+                        <li></li>
+                        <li>引用</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    {{item.content}}
+                </div>
+                <div class="time">
+                    {{item.create_time}} &nbsp;<a href="javascript:;" ng-click="reply(item.id,item.id)">回复</a>&nbsp;<a
+                        href="">送礼</a>
+                </div>
+                <div class="reply_msg" ng-repeat="vo in item.reply">
+                    <div><img src="__PUBLIC__/images/01.jpg" alt=""></li></div>
+                    <div>
                         <ul>
-                            <li>{$vo.id}楼</li>
-                            <li>{$vo.status}</li>
-                            <li></li>
-                            <li>引用</li>
+                            <li>{{vo.uid}}回复{{vo.sid}}</li>
+                            <li>{{vo.content}}</li>
+                            <li>{{vo.create_time}} &nbsp;<a href="javascript:;" ng-click="reply(item.id,vo.id)">回复</a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="content">
-                        {$vo.content}
-                    </div>
-                    <div class="time">
-                        {$vo.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$vo.id},{$vo.id})">回复</a>&nbsp;<a href="">送礼</a>
-                    </div>
-                    <volist name="vo['reply']" id="item">
-                        <div class="reply_msg">
-                            <div><img src="__PUBLIC__/images/01.jpg" alt=""></li></div>
-                            <div>
-                                <ul>
-                                    <li>{$item.uid}回复{$item.sid}</li>
-                                    <li>{$item.content}</li>
-                                    <li>{$item.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$vo.id},{$item.id})">回复</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </volist>
+                </div>
+                <div class="reply_box" id="reply_{{item.id}}">
+                    <input type="text" name="content" placeholder="输入回复">
+                    <button ng-click="send_reply(item.id)">回复</button>
+                    <button>取消</button>
                 </div>
             </div>
-        </volist>
+        </div>
     </div>
 </block>
 <block name="script">
     <script type="application/javascript" src="__PUBLIC__/ng/app.js"></script>
     <script type="application/javascript">
-
         app.controller('Controller', function ($scope, $http) {
             $scope.data = [];
-            $scope.id = '';
             $scope.sid = '';
 
-            $scope.reply = function (id, sid) {
-                let template = '';
-                template += '<div class="reply_box">';
-                template += '<input type="text" name="content" placeholder="输入回复">';
-                template += '<button ng-click="send_reply()">回复</button>';
-                template += '<button ng-click="cancel()">取消</button>';
-                template += '</div>';
-                $(".msg_board").append(template);
-                let wh = $(window).scrollHeight;
-                let ww = $(window).screenX;
-                console.log(wh);
-                $(".reply_box").css('top',wh/2+'px');
-                $(".reply_box").css('left',ww/3+'px');
-                $scope.id = id;
-                $scope.sid = sid;
+            $scope.getMsg = function () {
+                let url = "{:U('index')}";
+                let params = {
+                    page: 0
+                }
+                $http.post(url, params).success(function (data) {
+                    if (data.code == 200) {
+                        for (let i = 0; i < data.result.length; i++) {
+                            $scope.data.push(data.result[i]);
+                        }
+                    }
+                });
             }
 
             $scope.addMsg = function () {
@@ -248,18 +242,23 @@
                 });
             }
 
-            $scope.send_reply = function () {
+            $scope.reply = function (id, sid) {
+                $("#reply_" + id + "").css('display', 'block');
+                $scope.sid = sid;
+            }
+
+            $scope.send_reply = function (id) {
+                $("#reply_" + id + "").css('display', 'none');
                 let url = "{:U('add')}";
                 let params = {
-                    uid: $scope.id,
                     sid: $scope.sid,
-                    content: $("#main_" + $scope.id + " .main_right .reply_box input").val(),
+                    content: $("#reply_" + id + " input").val(),
                 }
                 $http.post(url, params).success(function (data) {
                     if (data.code == 200) {
                         if (data.result['sid'] != 0) {
                             for (let i = 0; i < $scope.data.length; i++) {
-                                if ($scope.data[i]['id'] == data.result['sid']) {
+                                if($scope.data[i]['id']==data.result['sid']){
                                     $scope.data[i]['reply'].push(data.result);
                                 }
                             }
@@ -269,9 +268,9 @@
 //                        $scope.data.push(data.result);
                     }
                 });
-                $("#reply_" + id + " .main_right .reply_box").remove();
             }
 
+            $scope.getMsg();
         });
     </script>
 </block>

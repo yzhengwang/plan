@@ -21,26 +21,22 @@ use Think\Controller;
 class MessageBoardController extends Controller
 {
     public function index() {
-        if (IS_POST) {
-            $pageCount = 5;
-            $page = I('page');
-            $model = M('message_board');
-            $result = $model->where(array('sid' => 0))->limit($page * $pageCount, $pageCount)->order('create_time desc')->select();
-            foreach ($result as $k => $v) {
-                $result[$k]['create_time'] = date('Y-m-d H:i:s', $v['create_time']);
-                $result[$k]['reply'] = $model->where(array('sid' => $v['id']))->order('create_time asc')->select();
-                foreach ($result[$k]['reply'] as $k1 => $v1) {
-                    $result[$k]['reply'][$k1]['create_time'] = date('Y-m-d H:i:s', $v1['create_time']);
-                }
+        $pageCount = 5;
+        $model = M('message_board');
+        $count = $model->count();
+        $Page = new \Think\Page($count, $pageCount);
+        $show = $Page->show();
+        $result = $model->where(array('sid' => 0))->limit($Page->firstRow . ',' . $Page->listRows)->order('create_time desc')->select();
+        foreach ($result as $k => $v) {
+            $result[$k]['create_time'] = date('Y-m-d H:i:s', $v['create_time']);
+            $result[$k]['reply'] = $model->where(array('sid' => $v['id']))->order('create_time asc')->select();
+            foreach ($result[$k]['reply'] as $k1 => $v1) {
+                $result[$k]['reply'][$k1]['create_time'] = date('Y-m-d H:i:s', $v1['create_time']);
             }
-            if ($result) {
-                $this->ajaxResult(200, 'success', $result);
-            } else {
-                $this->ajaxResult(300, 'error');
-            }
-        } else {
-            $this->display();
         }
+        $this->assign('list', $result);
+        $this->assign('page', $show);
+        $this->display();
     }
 
     public function add() {
@@ -48,7 +44,7 @@ class MessageBoardController extends Controller
             if (!empty(I('content'))) {
                 $data['content'] = I('content');
                 $data['create_time'] = time();
-                $data['uid'] = 1;
+                $data['uid'] = I('uid');
 //                $data['uid'] = $_SESSION['id'];
                 $data['sid'] = I('sid');
                 $model = M('message_board');
