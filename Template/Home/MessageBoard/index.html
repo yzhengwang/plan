@@ -49,7 +49,7 @@
         }
 
         .msg_board .face {
-            width: 20%;
+            width: 15%;
         }
 
         .msg_board .face img {
@@ -60,7 +60,7 @@
         }
 
         .msg_board .main_bd .main_right {
-            width: 80%;
+            width: 90%;
         }
 
         .msg_board .toolbar {
@@ -101,35 +101,34 @@
             display: flex;
             border-top: 1px solid rgba(255, 255, 255, .5);
             padding-top: 10px;
+            flex-direction: row;
         }
 
         .msg_board .reply_msg div:first-child {
             width: 12%;
         }
 
-        .msg_board .reply_msg div:last-child {
-            width: 80%;
+        .msg_board .reply_msg div:nth-child(2) {
+            width: 12%;
         }
 
-        .msg_board .reply_msg li {
-            float: left;
+        .msg_board .reply_msg .reply_right{
+            /*flex-direction: column;*/
+            width: 76%;
         }
 
-        .msg_board .reply_msg li:first-child {
-            max-width: 80px;
-            min-height: 80px;
-            overflow: hidden;
-            margin-right: 10px;
+        .msg_board .reply_msg .reply_right div:first-child{
+            width: 95%;
+            margin-bottom: 20px;
         }
 
-        .msg_board .reply_msg li:nth-child(2) {
-            width: 80%;
-            margin-bottom: 30px;
-            overflow: hidden;
+        .msg_board .reply_msg .reply_right div:nth-child(2) {
+            width: 95%;
+            margin-bottom: 20px;
         }
 
-        .msg_board .reply_msg li:last-child {
-            width: 80%;
+        .msg_board .reply_msg .reply_right div:nth-child(3){
+            width: 95%;
             margin-bottom: 16px;
         }
 
@@ -142,22 +141,23 @@
         .msg_board .reply_box {
             width: 100%;
             display: flex;
-            position: absolute;
+            /*position: absolute;*/
             flex-direction: row;
             margin-bottom: 10px;
             /*border: 1px solid red;*/
 
-            /*display: none;*/
+            display: none;
         }
 
         .msg_board .reply_box input, button {
-            background: rgba(128, 128, 128, .7);
+            background: rgba(0, 0, 0, .5);
             border: 1px solid #111;
             width: 200px;
             line-height: 30px;
             color: #b9b9b9;
             padding-left: 10px;
             padding-right: 25px;
+            margin-right: 1px;
         }
 
         .msg_board .reply_box button {
@@ -172,10 +172,10 @@
     <div class="msg_board">
         <div class="textarea">
             <textarea cols="20" rows="4" name="content" id="textarea" placeholder="添加留言..."></textarea>
-            <input type="button" ng-click="addMsg()" value="提交">
+            <input type="button" ng-click="addMsg($event,'msg')" value="发布">
         </div>
         <volist name="list" id="vo">
-            <div class="main_bd" id="main_{$vo.id}">
+            <div class="main_bd">
                 <div class="face"><img src="__PUBLIC__/images/01.jpg" alt=""></div>
                 <div class="main_right">
                     <div class="toolbar">
@@ -190,17 +190,25 @@
                         {$vo.content}
                     </div>
                     <div class="time">
-                        {$vo.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$vo.id},{$vo.id})">回复</a>&nbsp;<a href="">送礼</a>
+                        {$vo.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$vo.uid},{$vo.id},$event)">回复</a>&nbsp;<a href="">送礼</a>
+                    </div>
+                    <div class="reply_box">
+                        <input type="text" name="content" placeholder="输入回复">
+                        <button ng-click="addMsg($event,'reply')">回复</button>
+                        <button ng-click="cancel()">取消</button>
                     </div>
                     <volist name="vo['reply']" id="item">
                         <div class="reply_msg">
                             <div><img src="__PUBLIC__/images/01.jpg" alt=""></li></div>
-                            <div>
-                                <ul>
-                                    <li>{$item.uid}回复{$item.sid}</li>
-                                    <li>{$item.content}</li>
-                                    <li>{$item.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$vo.id},{$item.id})">回复</a></li>
-                                </ul>
+                            <div>{$item.uid}回复{$item.sid}</div>
+                            <div class="reply_right">
+                                <div>{$item.content}</div>
+                                <div>{$item.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$item.uid},{$vo.id},$event)">回复</a></div>
+                                <div class="reply_box">
+                                    <input type="text" name="content" placeholder="输入回复">
+                                    <button ng-click="addMsg($event,'reply')">回复</button>
+                                    <button ng-click="cancel()">取消</button>
+                                </div>
                             </div>
                         </div>
                     </volist>
@@ -214,64 +222,35 @@
     <script type="application/javascript">
 
         app.controller('Controller', function ($scope, $http) {
-            $scope.data = [];
-            $scope.id = '';
             $scope.sid = '';
+            $scope.mid = '';
 
-            $scope.reply = function (id, sid) {
-                let template = '';
-                template += '<div class="reply_box">';
-                template += '<input type="text" name="content" placeholder="输入回复">';
-                template += '<button ng-click="send_reply()">回复</button>';
-                template += '<button ng-click="cancel()">取消</button>';
-                template += '</div>';
-                $(".msg_board").append(template);
-                let wh = $(window).scrollHeight;
-                let ww = $(window).screenX;
-                console.log(wh);
-                $(".reply_box").css('top',wh/2+'px');
-                $(".reply_box").css('left',ww/3+'px');
-                $scope.id = id;
+            $scope.reply = function (sid, mid, $event) {
                 $scope.sid = sid;
+                $scope.mid = mid;
+                $($event.path['1']).next().css('display','block');
             }
 
-            $scope.addMsg = function () {
+            $scope.addMsg = function ($event, type) {
                 let url = "{:U('add')}";
-                let params = {
-                    content: $("#textarea").val(),
+                if(type == 'msg'){
+                    var params = {
+                        content: $("#textarea").val(),
+                    }
+                }else{
+                    var params = {
+                        sid: $scope.sid,
+                        mid: $scope.mid,
+                        content: $($event.target).prev().val(),
+                    }
                 }
+
                 $http.post(url, params).success(function (data) {
                     if (data.code == 200) {
-                        $scope.data.unshift(data.result);
-//                        $scope.data.push(data.result);
+                        window.location.reload();
                     }
                 });
             }
-
-            $scope.send_reply = function () {
-                let url = "{:U('add')}";
-                let params = {
-                    uid: $scope.id,
-                    sid: $scope.sid,
-                    content: $("#main_" + $scope.id + " .main_right .reply_box input").val(),
-                }
-                $http.post(url, params).success(function (data) {
-                    if (data.code == 200) {
-                        if (data.result['sid'] != 0) {
-                            for (let i = 0; i < $scope.data.length; i++) {
-                                if ($scope.data[i]['id'] == data.result['sid']) {
-                                    $scope.data[i]['reply'].push(data.result);
-                                }
-                            }
-                        } else {
-                            $scope.data.unshift(data.result);
-                        }
-//                        $scope.data.push(data.result);
-                    }
-                });
-                $("#reply_" + id + " .main_right .reply_box").remove();
-            }
-
         });
     </script>
 </block>

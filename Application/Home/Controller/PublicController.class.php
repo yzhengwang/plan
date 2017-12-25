@@ -18,7 +18,7 @@ class PublicController extends Controller
 				session_start();
 				session('id',$result['id']);
 				session('name',$name);
-				$this->redirect('Home/Select/index');
+				$this->redirect('Home/Index/index');
 			}
 		}
 		$this->display();
@@ -35,7 +35,7 @@ class PublicController extends Controller
 				session_start();
 				session('id',$result['id']);
 				session('name',$name);
-				$this->redirect('Home/Select/index');
+//				$this->redirect('Home/Select/index');
 			}
 		}
 		$this->display();

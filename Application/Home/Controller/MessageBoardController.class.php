@@ -29,11 +29,13 @@ class MessageBoardController extends Controller
         $result = $model->where(array('sid' => 0))->limit($Page->firstRow . ',' . $Page->listRows)->order('create_time desc')->select();
         foreach ($result as $k => $v) {
             $result[$k]['create_time'] = date('Y-m-d H:i:s', $v['create_time']);
-            $result[$k]['reply'] = $model->where(array('sid' => $v['id']))->order('create_time asc')->select();
+            $result[$k]['reply'] = $model->where(array('mid' => $v['id']))->order('create_time asc')->select();
             foreach ($result[$k]['reply'] as $k1 => $v1) {
                 $result[$k]['reply'][$k1]['create_time'] = date('Y-m-d H:i:s', $v1['create_time']);
+
             }
         }
+//        print_r($result);
         $this->assign('list', $result);
         $this->assign('page', $show);
         $this->display();
@@ -44,14 +46,15 @@ class MessageBoardController extends Controller
             if (!empty(I('content'))) {
                 $data['content'] = I('content');
                 $data['create_time'] = time();
-                $data['uid'] = I('uid');
-//                $data['uid'] = $_SESSION['id'];
+//                $data['uid'] = I('uid');
+                $data['uid'] = $_SESSION['id'];
                 $data['sid'] = I('sid');
+                $data['mid'] = I('mid');
                 $model = M('message_board');
                 $result = $model->add($data);
                 if ($result) {
-                    $rel = $model->where(array('id' => $result))->find();
-                    $this->ajaxResult(200, 'success', $rel);
+//                    $rel = $model->where(array('id' => $result))->find();
+                    $this->ajaxResult(200, 'success', $result);
                 } else {
                     $this->ajaxResult(300, 'error');
                 }

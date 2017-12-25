@@ -32,11 +32,11 @@
 	</style>
 </block>
 <block name="content">
-	<div class="login">
+	<div class="login" id="app">
 		<form method="post" action="{:U('login')}">
-			<!--<label class="">{{nameErrorPrompt}}</label>-->
+			<label class="">{{nameErrorPrompt}}</label>
 			<input v-model="name" type="text" name="name" placeholder="请输入用户名：">
-			<!--<label class="">{{pwdErrorPrompt}}</label>-->
+			<label class="">{{pwdErrorPrompt}}</label>
 			<input v-model="pwd" type="password" name="pwd" placeholder="请输入密码：">
 			<input type="submit" />
 		</form>
@@ -63,7 +63,7 @@
 					if(this.name==''){
 						this.nameErrorPrompt = '*用户名不能为空！';
 						$("input[type='text']").prev('label').css("color","red");
-						$("button[type='submit']").attr("disabled",true);
+//						$("button[type='submit']").attr("disabled",true);
 					}else{
 						this.getName();
 					}
@@ -72,16 +72,16 @@
 					if(this.pwd==''){
 						this.pwdErrorPrompt = '*密码不能为空！';
 						$("input[type='password']").prev('label').css("color","red");
-						$("button[type='submit']").attr("disabled",true);
+//						$("button[type='submit']").attr("disabled",true);
 					}else{
 						this.getPwd();
 					}
 				},
-				pwdRight:function () {
+				/*pwdRight:function () {
 					if(this.nameRight&&this.pwdRight){
 						$("button[type='submit']").removeAttr("disabled");
 					}
-				}
+				}*/
 			},
 			methods:{
 				getName:function () {
