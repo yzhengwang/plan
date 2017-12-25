@@ -10,8 +10,17 @@
             float: left;
             margin-top: 20px;
         }
+        .fav_url p{
+            width: 100px;
+            margin: 20px;
+            font-family: 幼圆;
+            font-size: 20px;
+        }
+        .fav_url ul{
+            width: 100%;
+        }
         .fav_url li{
-            width: auto;
+            width: 45%;
             height: 20px;
             margin: 10px;
             /*background: white;*/
@@ -37,6 +46,7 @@
 <block name="content">
     <div class="fav_url">
         <ul>
+            <p>学习类型：</p>
             <foreach name="list" item="vo" >
                 <li><a target="_blank" href="{$vo.url}"><span>{$vo.id}.</span>{$vo.url_name}</a></li>
             </foreach>

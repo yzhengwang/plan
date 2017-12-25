@@ -28,10 +28,10 @@ class MessageBoardController extends Controller
         $show = $Page->show();
         $result = $model->where(array('sid' => 0))->limit($Page->firstRow . ',' . $Page->listRows)->order('create_time desc')->select();
         foreach ($result as $k => $v) {
-            $result[$k]['create_time'] = date('Y-m-d H:i:s', $v['create_time']);
+            $result[$k]['create_time'] = date('Y-m-d H:i', $v['create_time']);
             $result[$k]['reply'] = $model->where(array('mid' => $v['id']))->order('create_time asc')->select();
             foreach ($result[$k]['reply'] as $k1 => $v1) {
-                $result[$k]['reply'][$k1]['create_time'] = date('Y-m-d H:i:s', $v1['create_time']);
+                $result[$k]['reply'][$k1]['create_time'] = date('Y-m-d H:i', $v1['create_time']);
 
             }
         }

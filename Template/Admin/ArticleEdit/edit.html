@@ -1,0 +1,25 @@
+<extend name="Public:base"/>
+<block name="content">
+    <div class="container">
+        <div class="row">
+            <div class="">
+                <form action="{:U('edit')}" method="post">
+                    <input type="hidden" name="id" value="{$list.id}" />
+                    <At:static title="序号" text="{$list.id}" />
+                    <At:static title="用户" text="{$list.uid}" />
+                    <At:static title="标题" text="{$list.title}" />
+                    <At:static title="类型" text="{$list.type}" />
+                    <At:editor name="content" title="内容" value="{$list.content}" />
+                    <!--<At:static title="内容" text="{$list.content}" />-->
+                    <At:static title="缩略图" text="{$list.thumb}" />
+                    <At:static title="阅读数" text="{$list.rnum}" />
+                    <At:static title="点击数" text="{$list.cnum}" />
+                    <At:static title="被踩数" text="{$list.snum}" />
+                    <At:static title="创建时间" text="{$list.create_time}" />
+                    <At:static title="修改时间" text="{$list.update_time}" />
+                    <input type="submit" value="提交" />
+                </form>
+            </div>
+        </div>
+    </div>
+</block>
