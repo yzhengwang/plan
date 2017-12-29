@@ -24,10 +24,19 @@
             <li><a href="">慢生活</a></li>
             <li><a href="{:U('MessageBoard/index')}">留言板</a></li>
             <li><a href="{:U('LearnCollection/index')}">学习网址</a></li>
-            <li>
-                <a style="padding-left: 5px;padding-right: 5px;margin-right: 0px;" href="{:U('Public/login')}">登录</a>
-                <a style="padding-left: 5px;padding-right: 5px;margin-right: 0px;" href="{:U('Public/register')}">注册</a>
-            </li>
+            <!--<input type="text" value="">-->
+            <empty name="Think.session.id">
+                <li>
+                    <a style="padding-left: 5px;padding-right: 5px;margin-right: 0px;"
+                       href="{:U('Public/login')}">登录</a>
+                    <a style="padding-left: 5px;padding-right: 5px;margin-right: 0px;"
+                       href="{:U('Public/register')}">注册</a>
+                </li>
+                <else/>
+                <li>
+                    <a href="{:U('Public/logout')}">退出</a>
+                </li>
+            </empty>
         </ul>
     </nav>
     <form action="" class="searchform" method="get" action="#">

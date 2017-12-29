@@ -46,7 +46,7 @@
 </block>
 <block name="content">
 	<div class="login">
-		<form method="post" action="{:U('login')}">
+		<form method="post" action="{:U('register')}">
 			<h2>注册</h2>
 			<img src="__PUBLIC__/images/01.jpg" alt="头像">
 			<input v-model="name" type="text" name="name" placeholder="用户名：">
@@ -96,44 +96,6 @@
 					if(this.nameRight&&this.pwdRight){
 						$("button[type='submit']").removeAttr("disabled");
 					}
-				}
-			},
-			methods:{
-				getName:function () {
-					let vm = this;
-					$.ajax({
-						type: "POST",
-						url: getNameApi,
-						data: "name="+this.name,
-						success: function(msg){
-							if(msg!='true'){
-								vm.nameErrorPrompt = '没有该用户！';
-								$("button[type='submit']").attr("disabled",true);
-							}else{
-								vm.nameErrorPrompt = '用户名正确！';
-								$("input[type='text']").prev('label').css("color","green");
-								vm.nameRight = true;
-							}
-						}
-					});
-				},
-				getPwd:function () {
-					let vm = this;
-					$.ajax({
-						type: "POST",
-						url: getPwdApi,
-						data: "name="+this.name+"&pwd="+this.pwd,
-						success: function(msg){
-							if(msg!='true'){
-								vm.pwdErrorPrompt = '密码错误！';
-								$("button[type='submit']").attr("disabled",true);
-							}else{
-								vm.pwdErrorPrompt = '密码正确！';
-								$("input[type='password']").prev('label').css("color","green");
-								vm.pwdRight = true;
-							}
-						}
-					});
 				}
 			}
 

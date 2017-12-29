@@ -19,6 +19,10 @@
             border-top: 1px solid rgba(255, 255, 255, .5);
         }
 
+        .msg_board .main_bd:first-child {
+            border: 0;
+        }
+
         .textarea {
             width: 100%;
             margin: 15px auto;
@@ -84,7 +88,8 @@
             width: 100px;
             float: right;
         }
-        .msg_board .toolbar li:last-child select{
+
+        .msg_board .toolbar li:last-child select {
             background: rgba(0, 0, 0, 0.25);
             width: 50px;
             height: 25px;
@@ -94,11 +99,11 @@
             padding: 2px;
         }
 
-     /*   .msg_board .toolbar li:last-child select option{
-            background: rgba(0, 0, 0, 0.25);
-            width: 80px;
-            height: 25px;
-        }*/
+        /*   .msg_board .toolbar li:last-child select option{
+               background: rgba(0, 0, 0, 0.25);
+               width: 80px;
+               height: 25px;
+           }*/
 
         .msg_board .content {
             min-height: 80px;
@@ -127,12 +132,12 @@
             width: 12%;
         }
 
-        .msg_board .reply_msg .reply_right{
+        .msg_board .reply_msg .reply_right {
             /*flex-direction: column;*/
             width: 76%;
         }
 
-        .msg_board .reply_msg .reply_right div:first-child{
+        .msg_board .reply_msg .reply_right div:first-child {
             width: 95%;
             margin-bottom: 20px;
         }
@@ -142,7 +147,7 @@
             margin-bottom: 20px;
         }
 
-        .msg_board .reply_msg .reply_right div:nth-child(3){
+        .msg_board .reply_msg .reply_right div:nth-child(3) {
             width: 95%;
             margin-bottom: 16px;
         }
@@ -185,10 +190,12 @@
 </block>
 <block name="content">
     <div class="msg_board">
-        <div class="textarea">
-            <textarea cols="20" rows="4" name="content" id="textarea" placeholder="添加留言..."></textarea>
-            <input type="button" ng-click="addMsg($event,'msg')" value="发布">
-        </div>
+        <notempty name="Think.session.id">
+            <div class="textarea">
+                <textarea cols="20" rows="4" name="content" id="textarea" placeholder="添加留言..."></textarea>
+                <input type="button" ng-click="addMsg($event,'msg')" value="发布">
+            </div>
+        </notempty>
         <volist name="list" id="vo">
             <div class="main_bd">
                 <div class="face"><img src="__PUBLIC__/images/01.jpg" alt=""></div>
@@ -210,7 +217,11 @@
                         {$vo.content}
                     </div>
                     <div class="time">
-                        {$vo.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$vo.uid},{$vo.id},$event)">回复</a>&nbsp;<a href="">送礼</a>
+                        {$vo.create_time} &nbsp;
+                        <notempty name="Think.session.id">
+                            <a href="javascript:;" ng-click="reply({$vo.uid},{$vo.id},$event)">回复</a>&nbsp;
+                            <a href="">送礼</a>
+                        </notempty>
                     </div>
                     <div class="reply_box">
                         <input type="text" name="content" placeholder="输入回复">
@@ -223,7 +234,11 @@
                             <div>{$item.uid}回复{$item.sid}</div>
                             <div class="reply_right">
                                 <div>{$item.content}</div>
-                                <div>{$item.create_time} &nbsp;<a href="javascript:;" ng-click="reply({$item.uid},{$vo.id},$event)">回复</a></div>
+                                <div>{$item.create_time} &nbsp;
+                                    <notempty name="Think.session.id">
+                                        <a href="javascript:;" ng-click="reply({$item.uid},{$vo.id},$event)">回复</a>
+                                    </notempty>
+                                </div>
                                 <div class="reply_box">
                                     <input type="text" name="content" placeholder="输入回复">
                                     <button ng-click="addMsg($event,'reply')">回复</button>
@@ -248,16 +263,16 @@
             $scope.reply = function (sid, mid, $event) {
                 $scope.sid = sid;
                 $scope.mid = mid;
-                $($event.path['1']).next().css('display','block');
+                $($event.path['1']).next().css('display', 'block');
             }
 
             $scope.addMsg = function ($event, type) {
                 let url = "{:U('add')}";
-                if(type == 'msg'){
+                if (type == 'msg') {
                     var params = {
                         content: $("#textarea").val(),
                     }
-                }else{
+                } else {
                     var params = {
                         sid: $scope.sid,
                         mid: $scope.mid,

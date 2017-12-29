@@ -9,7 +9,7 @@
 			border-radius: 6px;
 			float: left;
 			margin-top: 20px;
-			text-align: center;
+			text-align: left;
 			height: 800px;
 		}
 		.login form{
@@ -17,6 +17,8 @@
 			height: 50%;
 			margin: 100px auto;
 			padding: 50px;
+			display: flex;
+			flex-direction: column;
 		}
 		.login input{
 			background: rgba(0, 0, 0, 0.25);
@@ -26,8 +28,13 @@
 			color: #b9b9b9;
 			padding-left: 10px;
 			padding-right: 25px;
-			margin-left: 20px;
+			/*margin-left: 20px;*/
 			margin-bottom: 50px;
+		}
+
+		.login label {
+			margin-bottom: 10px;
+			padding-left: 5px;
 		}
 	</style>
 </block>
@@ -38,7 +45,7 @@
 			<input v-model="name" type="text" name="name" placeholder="请输入用户名：">
 			<label class="">{{pwdErrorPrompt}}</label>
 			<input v-model="pwd" type="password" name="pwd" placeholder="请输入密码：">
-			<input type="submit" />
+			<input type="submit" value="登录"/>
 		</form>
 	</div>
 </block>
@@ -53,28 +60,24 @@
 			data:{
 				name:'',
 				pwd:'',
-				nameErrorPrompt:'*请输入用户名！',
-				pwdErrorPrompt:'*请输入密码！',
+                nameErrorPrompt: '请输入用户名！',
+                pwdErrorPrompt: '请输入密码！',
 				nameRight:false,
 				pwdRight:false
 			},
 			watch:{
 				name:function () {
 					if(this.name==''){
-						this.nameErrorPrompt = '*用户名不能为空！';
+                        this.nameErrorPrompt = '用户名不能为空！';
 						$("input[type='text']").prev('label').css("color","red");
 //						$("button[type='submit']").attr("disabled",true);
-					}else{
-						this.getName();
 					}
 				},
 				pwd:function () {
 					if(this.pwd==''){
-						this.pwdErrorPrompt = '*密码不能为空！';
+                        this.pwdErrorPrompt = '密码不能为空！';
 						$("input[type='password']").prev('label').css("color","red");
 //						$("button[type='submit']").attr("disabled",true);
-					}else{
-						this.getPwd();
 					}
 				},
 				/*pwdRight:function () {
