@@ -9,6 +9,7 @@
             border-radius: 6px;
             float: left;
             margin-top: 20px;
+            padding: 20px;
         }
         .fav_url p{
             width: 100px;
@@ -20,36 +21,42 @@
             width: 100%;
         }
         .fav_url li{
-            width: 45%;
-            height: 20px;
-            margin: 10px;
+            /*width: 45%;*/
+            /*height: 20px;*/
+            margin-bottom: 10px;
             /*background: white;*/
             float: left;
             border-radius: 3px;
             line-height: 20px;
             padding: 5px;
-        }
-        .fav_url li span{
-            margin-right: 10px;
-            font-size: 18px;
-            font-family: "微软雅黑";
-            color: #f8490b;
+            word-wrap:break-word;
         }
         .fav_url li a{
-            color: #fafafa;
+            color: #bababa;
+            font-size: 20px;
+            text-decoration: none;
         }
         .fav_url li a:hover{
-            color: #3e8f3e;
+            color: #31b0d5;
         }
     </style>
 </block>
 <block name="content">
     <div class="fav_url">
         <ul>
-            <p>学习类型：</p>
+            <!--<p>学习类型：</p>-->
             <foreach name="list" item="vo" >
-                <li><a target="_blank" href="{$vo.url}"><span>{$vo.id}.</span>{$vo.url_name}</a></li>
+                <li><a target="_blank" href="{$vo.url}">{$vo.url_name}</a></li>
             </foreach>
         </ul>
+        <notempty name="Think.session.id">
+        <form role="form" method="post">
+            <div class="form-group">
+                <input id="name" name="url_name" class="form-control" rows="3" style="background: #bababa;margin-bottom: 10px;" placeholder="链接名"/>
+                <input name="url" class="form-control" rows="3" style="background: #bababa;margin-bottom: 10px;" placeholder="链接"/>
+                <button type="submit" class="btn btn-default">添加</button>
+            </div>
+        </form>
+        </notempty>
     </div>
 </block>

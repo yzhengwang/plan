@@ -16,80 +16,86 @@
 
 
 namespace Home\Controller;
+
 use Think\Controller;
 
-class IndexController extends Controller {
+class IndexController extends Controller
+{
 
-  public function __construct() {
-    parent::__construct();
-    if (empty($_SESSION)) {
+    public function __construct() {
+        parent::__construct();
+        if (empty($_SESSION)) {
 //      $this->redirect('Home/Public/login');
-    }
-  }
-  public function index(){
-    /*$model = D('User');
-    $result = $model
-        ->relation(true)
-        ->where(array('name'=>$_SESSION['name']))
-        ->field('id,name')
-        ->find();
-    foreach ($result['plan_content'] as $k=>$v){
-      $result['plan_content'][$k]['create_time'] = date('Y-m-d H:i:s', $result['plan_content'][$k]['create_time']);
-    }
-    $this->assign('info', $result);
-    $this->assign('list', $result['plan_content'][sizeof($result['plan_content'])-1]);
-
-    $this->assign('url_list', $result['url_collect']);*/
-    $this->display();
-  }
-
-  public function addPlan(){
-    if (IS_POST) {
-      $m = empty(I('morning'));
-      $a = empty(I('afternoon'));
-      $n = empty(I('night'));
-      if($m||$a||$n){
-        $this->error('请输入内容再提交！');
-      }
-      $model = M('plan_content');
-      if($model->create()){
-        $data['uid'] = $_SESSION['id'];
-        $data['morning'] = I('morning');
-        $data['afternoon'] = I('afternoon');
-        $data['night'] = I('night');
-        $data['create_time'] = time();
-        if($model->add($data)){
-          $this->success('添加成功！', U('index'));
-        }else{
-          $this->error('添加失败！');
         }
-      }else{
-        $this->error('读取数据失败！', $model->getError());
-      }
     }
-  }
 
-  public function addCollect(){
-    if (IS_POST) {
-      $u = empty(I('url'));
-      $un = empty(I('url'));
-      if($u||$un){
-        $this->error('请输入内容再提交！');
-      }
-      $model = M('url_collect');
-      if($model->create()){
-        $data['uid'] = $_SESSION['id'];
-        $data['url'] = I('url');
-        $data['url_name'] = I('url_name');
-        if($model->add($data)){
-          $this->success('添加成功！', U('index'));
-        }else{
-          $this->error('添加失败！');
+    public function index() {
+        /*$model = D('User');
+        $result = $model
+            ->relation(true)
+            ->where(array('name'=>$_SESSION['name']))
+            ->field('id,name')
+            ->find();
+        foreach ($result['plan_content'] as $k=>$v){
+          $result['plan_content'][$k]['create_time'] = date('Y-m-d H:i:s', $result['plan_content'][$k]['create_time']);
         }
-      }else{
-        $this->error('读取数据失败！', $model->getError());
-      }
+        $this->assign('info', $result);
+        $this->assign('list', $result['plan_content'][sizeof($result['plan_content'])-1]);
+
+        $this->assign('url_list', $result['url_collect']);*/
+        $model = D('UrlCollect');
+        $result = $model->limit(0, 8)->select();
+        $this->assign('FriendshipLink', $result);
+        $this->display();
     }
-  }
+
+    public function addPlan() {
+        if (IS_POST) {
+            $m = empty(I('morning'));
+            $a = empty(I('afternoon'));
+            $n = empty(I('night'));
+            if ($m || $a || $n) {
+                $this->error('请输入内容再提交！');
+            }
+            $model = M('plan_content');
+            if ($model->create()) {
+                $data['uid'] = $_SESSION['id'];
+                $data['morning'] = I('morning');
+                $data['afternoon'] = I('afternoon');
+                $data['night'] = I('night');
+                $data['create_time'] = time();
+                if ($model->add($data)) {
+                    $this->success('添加成功！', U('index'));
+                } else {
+                    $this->error('添加失败！');
+                }
+            } else {
+                $this->error('读取数据失败！', $model->getError());
+            }
+        }
+    }
+
+    public function addCollect() {
+        if (IS_POST) {
+            $u = empty(I('url'));
+            $un = empty(I('url'));
+            if ($u || $un) {
+                $this->error('请输入内容再提交！');
+            }
+            $model = M('url_collect');
+            if ($model->create()) {
+                $data['uid'] = $_SESSION['id'];
+                $data['url'] = I('url');
+                $data['url_name'] = I('url_name');
+                if ($model->add($data)) {
+                    $this->success('添加成功！', U('index'));
+                } else {
+                    $this->error('添加失败！');
+                }
+            } else {
+                $this->error('读取数据失败！', $model->getError());
+            }
+        }
+    }
 
 }

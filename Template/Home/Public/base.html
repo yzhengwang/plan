@@ -100,10 +100,9 @@
         <div class="links">
             <h2>友情链接</h2>
             <ul>
-                <li><a href="">baidu</a></li>
-                <li><a href="">baidu</a></li>
-                <li><a href="">baidu</a></li>
-                <li><a href="">baidu</a></li>
+                <foreach name="FriendshipLink" item="vo" >
+                    <li><a target="_blank" href="{$vo.url}">{$vo.url_name}</a></li>
+                </foreach>
             </ul>
         </div>
         <div class="visitors">
@@ -143,7 +142,7 @@
         </section>
     </div>
     <div class="footer-bottom">
-        <p>Copyright 2017 Design by <a href="">yzhengwang</a></p>
+        <p>Copyright 2018 Design by <a href="">yzhengwang</a></p>
     </div>
 </footer>
 <block name="script"></block>

@@ -25,10 +25,19 @@ class LearnCollectionController extends Controller
 
     public function index() {
         $model = D('UrlCollect');
-        $list = $model->select();
-        $this->assign('list', $list);
-        $this->display();
+        if(IS_POST){
+            if($model->create()){
+                if($model->add()){
+                    $this->success('添加成功！');
+                }else{
+                    $this->error('添加失败！');
+                }
+            }
+        }else{
+            $list = $model->select();
+            $this->assign('list', $list);
+            $this->display();
+        }
     }
-
 
 }

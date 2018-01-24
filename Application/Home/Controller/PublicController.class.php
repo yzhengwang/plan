@@ -19,6 +19,7 @@ class PublicController extends Controller
                 session_start();
                 session('id', $result['id']);
                 session('name', $name);
+                session('real_name', $result['real_name']);
                 $this->redirect('Home/Index/index');
             } else {
                 $this->error('您输入的用户名或密码错误！');
